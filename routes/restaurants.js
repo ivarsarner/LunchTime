@@ -4,14 +4,22 @@ const { getYelp } = require('../api/api.js');
 const { saveToDb, readDb } = require('../db/db.js');
 
 const filterRestaurants = (data) => {
-  return data.sort((a, b) => (a.distance > b.distance ? 1 : -1)).slice(0, 10);
+  return data
+    .filter((restaurant) => restaurant.is_closed === false)
+    .sort((a, b) => (a.distance > b.distance ? 1 : -1))
+    .slice(0, 10);
 };
 
-router.get('/', async (req, res) => {
-  const dbData = await readDb();
+router.get('/:lat/:long', async (req, res) => {
+  console.log(req.params.lat);
+  console.log(req.params.long);
+  /*   const dbData = await readDb();
   const data = JSON.parse(dbData);
-  const restos = filterRestaurants(data.businesses);
-  res.json(restos);
+ */
+
+  const data = await getYelp(req.params.lat, req.params.long);
+  const restaurants = filterRestaurants(data.businesses);
+  res.json(restaurants);
 });
 
 const storeDataObject = async () => {

@@ -11,7 +11,6 @@ const saveToDb = async (data) =>
   await writeFile('../db/yelp.json', JSON.stringify(data, null, 2));
 
 const readDb = async () => await readFile(dbPath, 'utf8');
-// ../db/yelp.json
 
 module.exports = {
   saveToDb,

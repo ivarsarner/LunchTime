@@ -7,40 +7,48 @@ class RestaurantList extends Component {
     restaurants: [],
   };
 
-  async getRestaurants() {
-    return await axios.get('http://localhost:9000/restaurants');
+  getLocation() {
+    const options = {
+      enableHighAccuracy: true,
+    };
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, options);
+    });
+  }
+
+  async getRestaurants(latitude, longitude) {
+    return await axios.get(
+      `http://localhost:9000/restaurants/${latitude}/${longitude}`
+    );
   }
 
   async componentDidMount() {
-    const response = await this.getRestaurants();
+    const location = await this.getLocation();
+    const { latitude, longitude } = location.coords;
+
+    const response = await this.getRestaurants(latitude, longitude);
+
     this.setState({
       restaurants: response.data,
     });
-    this.log();
-  }
-
-  log() {
-    console.log(this.state);
   }
 
   render() {
     return (
-      <div>
-        <h3>Restaurants close to you</h3>
+      <>
+        <header>
+          <h3>Restaurants close to you</h3>
+        </header>
         <section className="restaurants-list">
           {this.state.restaurants.map((restaurant) => (
-            <Restaurant restaurant={restaurant} />
+            <div key={restaurant.id} className="restaurants-list__card">
+              <Restaurant restaurant={restaurant} />
+            </div>
           ))}
         </section>
-      </div>
+      </>
     );
   }
 }
-
-/* {this.state.restaurants ? (
-  <Restaurant restaurants={this.state.restaurants} />
-) : (
-  'Loading restaurants...'
-)} */
 
 export default RestaurantList;
