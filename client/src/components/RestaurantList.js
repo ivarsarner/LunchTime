@@ -36,16 +36,22 @@ class RestaurantList extends Component {
   render() {
     return (
       <>
-        <header>
-          <h3>Restaurants close to you</h3>
-        </header>
-        <section className="restaurants-list">
-          {this.state.restaurants.map((restaurant) => (
-            <div key={restaurant.id} className="restaurants-list__card">
-              <Restaurant restaurant={restaurant} />
-            </div>
-          ))}
-        </section>
+        {this.state.restaurants.length > 0 ? (
+          <div>
+            <header>
+              <h3>Restaurants close to you:</h3>
+            </header>
+            <section className="restaurants-list">
+              {this.state.restaurants.map((restaurant) => (
+                <div key={restaurant.id} className="restaurants-list__card">
+                  <Restaurant restaurant={restaurant} />
+                </div>
+              ))}
+            </section>
+          </div>
+        ) : (
+          <p>Getting restaurants in your area...</p>
+        )}
       </>
     );
   }
