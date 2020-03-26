@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
-import logo from './logo.png';
+import './styles/App.css';
+import logo from './assets/logo.png';
 import RestaurantList from './components/RestaurantList';
 
 function App() {
