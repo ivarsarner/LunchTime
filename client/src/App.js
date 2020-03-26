@@ -6,7 +6,7 @@ import RestaurantList from './components/RestaurantList';
 function App() {
   return (
     <main>
-      <img src={logo} />
+      <img src={logo} alt="LunchTime logo" />
       <RestaurantList />
     </main>
   );
