@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const { getYelp } = require('../api/api.js');
-const { saveToDb, readDb } = require('../db/db.js');
+const getYelp = require('../api/api.js');
+// const { saveToDb, readDb } = require('../db/db.js');
 
 const filterRestaurants = (data) => {
   return data
@@ -22,12 +22,12 @@ router.get('/:lat/:long', async (req, res) => {
   res.json(restaurants);
 });
 
-const storeDataObject = async () => {
+/* const storeDataObject = async () => {
   const epiLat = '59.333861';
   const epiLong = '18.066157';
   const data = await getYelp(epiLat, epiLong);
   saveToDb(data);
-};
+}; */
 
 //storeDataObject();
 

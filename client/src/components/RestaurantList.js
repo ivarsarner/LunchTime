@@ -17,9 +17,7 @@ class RestaurantList extends Component {
   }
 
   async getRestaurants(latitude, longitude) {
-    return await axios.get(
-      `http://localhost:9000/restaurants/${latitude}/${longitude}`
-    );
+    return await axios.get(`/restaurants/${latitude}/${longitude}`);
   }
 
   async componentDidMount() {

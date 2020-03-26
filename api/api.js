@@ -9,6 +9,4 @@ const getYelp = async (latitude, longitude, category = 'restaurants') => {
   return response.data;
 };
 
-module.exports = {
-  getYelp,
-};
+module.exports = getYelp;
